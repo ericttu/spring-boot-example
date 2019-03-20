@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<div class="message">
+    <button id="getMessage">Get Message</button>
+    带参get：
+    <p id="message-get"></p>
+</div>
+
+<div class="message">
+    <button id="postMessage">Get Message</button>
+    post：
+    <p id="message-post"></p>
+</div>
+
+</body>
+
+<script>
+    var baseUrl = "http://localhost:8080/ajax";
+
+    document.getElementById("getMessage").onclick = function () {
+        axios.get(baseUrl + "/get", {params: {id: 123}})
+            .then(function (response) {
+                var html = "";
+                html += "name: " + response.data.name + "<br>";
+                html += "id: " + response.data.id;
+
+                document.getElementById("message-get").innerHTML = html;
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
+    };
+
+    document.getElementById("postMessage").onclick = function () {
+        axios.post(baseUrl + "/post", {
+            username: 'Fred',
+            password: 'aabbcc'
+        })
+            .then(function (response) {
+                var html = "";
+                html += "username: " + response.data.username + "<br>";
+                html += "password: " + response.data.password;
+
+                document.getElementById("message-post").innerHTML = html;
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
+    };
+</script>
+</html>
